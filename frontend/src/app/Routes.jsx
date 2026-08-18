@@ -5,29 +5,46 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
+import PublicRoute from "../protected/PublicRoute";
+import ProtectedRoute from "../protected/ProtectedRoute";
+import { useSelector } from "react-redux";
+import { useAuth } from "../hooks/useAuth";
+
 
 export const routes = createBrowserRouter([
   {
     path: "/",
-    element: <AuthLayout />,
+    element: <PublicRoute />,
     children: [
       {
-        path: '',
-        element: <Login />
-      },
-      {
-        path: 'register',
-        element: <Register />
-      },
+        path: "",
+        element: <AuthLayout />,
+        children: [
+          {
+            path: '',
+            element: <Login />
+          },
+          {
+            path: 'register',
+            element: <Register />
+          },
+        ]
+      }
     ]
   },
   {
     path: '/home',
-    element: <MainLayout />,
+    element: <ProtectedRoute />,
     children: [
       {
         path: "",
-        element: <Home />
+        element: <MainLayout />,
+        children: [
+          {
+            path: "",
+            element: <Home />
+          }
+        ]
       }
     ]
   }
