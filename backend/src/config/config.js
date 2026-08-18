@@ -2,6 +2,8 @@ import { config } from "dotenv";
 
 config()
 
+const normalizeOrigin = (origin) => origin.replace(/\/+$/, "");
+
 
 if (!process.env.PORT) {
     throw new Error("PORT is not defined in env file")
@@ -38,6 +40,11 @@ if (!process.env.NODE_ENVIRONMENT) {
 }
 
 
+if (!process.env.CORS_ORIGIN) {
+    throw new Error("CORS_ORIGIN is not defined in env file")
+}
+
+
 
 export const appConfig = {
     PORT: process.env.PORT,
@@ -47,4 +54,5 @@ export const appConfig = {
     JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET,
     JWT_REFRESH_EXPIRE: process.env.JWT_REFRESH_EXPIRE,
     NODE_ENVIRONMENT: process.env.NODE_ENVIRONMENT,
+    CORS_ORIGIN: normalizeOrigin(process.env.CORS_ORIGIN),
 }

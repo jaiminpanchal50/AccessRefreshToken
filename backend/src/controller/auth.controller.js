@@ -39,7 +39,12 @@ export async function registerController(req, res, next) {
         return res.status(201).json({
             success: true,
             message: "User registerd successfully",
-            user
+            user: {
+                name: user.name,
+                email: user.email,
+                _id: user._id,
+                refreshToken: user.refreshToken
+            }
         })
 
     } catch (err) {
@@ -85,7 +90,12 @@ export async function loginController(req, res, next) {
         return res.status(200).json({
             success: true,
             message: "User LoggedIn successfully",
-            user: isEmailExist
+            user: {
+                name: isEmailExist.name,
+                email: isEmailExist.email,
+                _id: isEmailExist._id,
+                refreshToken: isEmailExist.refreshToken
+            }
         })
 
 
